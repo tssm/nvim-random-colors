@@ -14,11 +14,7 @@ local get_schemes = function()
 end
 
 local random_number = function(limit)
-	local reltime = n.nvim_call_function('reltime', { })
-	local reltimestr = n.nvim_call_function('reltimestr', { reltime })
-	local capture = string.match(reltimestr, '%.(%d*)')
-	local microseconds = capture + 0
-	return microseconds % limit
+	return (os.time() % limit) + 1
 end
 
 local get_scheme = function()
