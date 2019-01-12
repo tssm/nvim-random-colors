@@ -2,7 +2,7 @@ local n = vim.api
 
 local get_schemes = function()
 	local paths_string = n.nvim_call_function('globpath', {
-		n.nvim_get_option('packpath'), 'pack/colors/opt/*/colors/*.vim' })
+		n.nvim_get_option('packpath'), 'pack/*/opt/*/colors/*.vim' })
 	local paths = n.nvim_call_function('split', { paths_string, '\n' })
 	
 	local names = {}
