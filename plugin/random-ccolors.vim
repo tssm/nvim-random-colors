@@ -1,1 +1,1 @@
-call luaeval("require('random-colors')()")
+lua require('random-colors')()
