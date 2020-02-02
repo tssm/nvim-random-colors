@@ -43,13 +43,11 @@ local get_available_schemes = function(all_schemes, used_schemes)
 end
 
 local get_used_schemes = function()
-	local file = io.open(used_schemes_file, 'r')
 	local used_schemes = {}
 	for line in io.lines(used_schemes_file) do
 		table.insert(used_schemes, line)
 	end
 
-	file:close()
 	return used_schemes
 end
 
