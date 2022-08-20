@@ -1,22 +1,21 @@
+local _2afile_2a = "fnl/random-colors.fnl"
 local api = vim.api
 local call = api.nvim_call_function
 local core = require("random-colors.aniseed.core")
 local cache_path = call("stdpath", {"cache"})
 local used_schemes_file = (cache_path .. "/used_schemes")
-local function _0_(...)
-  if (0 == call("filereadable", {used_schemes_file})) then
-    return os.execute(("mkdir -p " .. cache_path .. " && touch " .. used_schemes_file))
-  end
+if (0 == call("filereadable", {used_schemes_file})) then
+  os.execute(("mkdir -p " .. cache_path .. " && touch " .. used_schemes_file))
+else
 end
-_0_(...)
-local all_schemes = all_schemes
+local all_schemes
 do
-  local strings = call("globpath", {api.nvim_get_option("packpath"), "pack/*/opt/*/colors/*.vim"})
+  local strings = call("globpath", {api.nvim_get_option("packpath"), "pack/**/colors/*.vim"})
   local paths = call("split", {strings, "\n"})
-  local function _1_(path)
+  local function _2_(path)
     return call("fnamemodify", {path, ":t:r"})
   end
-  all_schemes = core.map(_1_, paths)
+  all_schemes = core.map(_2_, paths)
 end
 local function used_schemes()
   return call("split", {core.slurp(used_schemes_file)})
@@ -30,6 +29,7 @@ local function _5c_5c(a, b)
   for _, v in ipairs(a) do
     if not remove[v] then
       table.insert(result, v)
+    else
     end
   end
   return result
@@ -51,6 +51,7 @@ local function set_scheme()
   local scheme = schemes[random_number(total_schemes)]
   if (total_schemes == #all_schemes) then
     os.execute(("echo '' > " .. used_schemes_file))
+  else
   end
   api.nvim_command(("colorscheme " .. scheme))
   return os.execute(("echo " .. scheme .. " >> " .. used_schemes_file))

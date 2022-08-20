@@ -14,7 +14,7 @@
   (let [
     strings (call :globpath [
       (api.nvim_get_option :packpath)
-      "pack/*/opt/*/colors/*.vim"])
+      "pack/**/colors/*.vim"])
     paths (call :split [strings "\n"])]
 
     (core.map (fn [path] (call :fnamemodify [path ":t:r"])) paths)))

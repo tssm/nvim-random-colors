@@ -1,5 +1,5 @@
-It assumes the schemes are in `&packpath/pack/*/opt/` and it
-tracks previously used schemes to avoid repetition.
+It assumes the schemes are in `&packpath` and it tracks previously
+used schemes to avoid repetition.
 
 To manually select another random scheme use `lua
 require('random-colors')()`, e.g.:
