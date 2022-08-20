@@ -2,12 +2,12 @@
 (local call api.nvim_call_function)
 (local core (require :random-colors.aniseed.core))
 
-(local cache_path (call :stdpath [:cache]))
-(local used_schemes_file (.. cache_path "/used_schemes"))
+(local state_path (call :stdpath [:state]))
+(local used_schemes_file (.. state_path "/used_schemes"))
 
 ; Create the file that tracks the previously used schemes if it doesn't exists
 (when (= 0 (call :filereadable [used_schemes_file]))
-  (os.execute (.. "mkdir -p " cache_path " && touch " used_schemes_file)))
+  (os.execute (.. "mkdir -p " state_path " && touch " used_schemes_file)))
 
 ; Sequential table with the names of all the manually installed color schemes
 (local all_schemes

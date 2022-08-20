@@ -2,10 +2,10 @@ local _2afile_2a = "fnl/random-colors.fnl"
 local api = vim.api
 local call = api.nvim_call_function
 local core = require("random-colors.aniseed.core")
-local cache_path = call("stdpath", {"cache"})
-local used_schemes_file = (cache_path .. "/used_schemes")
+local state_path = call("stdpath", {"state"})
+local used_schemes_file = (state_path .. "/used_schemes")
 if (0 == call("filereadable", {used_schemes_file})) then
-  os.execute(("mkdir -p " .. cache_path .. " && touch " .. used_schemes_file))
+  os.execute(("mkdir -p " .. state_path .. " && touch " .. used_schemes_file))
 else
 end
 local all_schemes
