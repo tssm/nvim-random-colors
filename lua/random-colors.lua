@@ -9,8 +9,7 @@ else
 end
 local all_schemes
 do
-  local strings = f.globpath(vim.o.packpath, "pack/**/colors/*.vim")
-  local paths = f.split(strings, "\n")
+  local paths = f.globpath(vim.o.packpath, "pack/**/colors/*.vim", false, true)
   local function _2_(path)
     return f.fnamemodify(path, ":t:r")
   end
