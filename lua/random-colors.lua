@@ -1,24 +1,24 @@
 local _2afile_2a = "fnl/random-colors.fnl"
 local api = vim.api
-local call = api.nvim_call_function
 local core = require("random-colors.aniseed.core")
-local state_path = call("stdpath", {"state"})
+local f = vim.fn
+local state_path = f.stdpath("state")
 local used_schemes_file = (state_path .. "/used_schemes")
-if (0 == call("filereadable", {used_schemes_file})) then
+if (0 == f.filereadable(used_schemes_file)) then
   os.execute(("mkdir -p " .. state_path .. " && touch " .. used_schemes_file))
 else
 end
 local all_schemes
 do
-  local strings = call("globpath", {api.nvim_get_option("packpath"), "pack/**/colors/*.vim"})
-  local paths = call("split", {strings, "\n"})
+  local strings = f.globpath(api.nvim_get_option("packpath"), "pack/**/colors/*.vim")
+  local paths = f.split(strings, "\n")
   local function _2_(path)
-    return call("fnamemodify", {path, ":t:r"})
+    return f.fnamemodify(path, ":t:r")
   end
   all_schemes = core.map(_2_, paths)
 end
 local function used_schemes()
-  return call("split", {core.slurp(used_schemes_file)})
+  return f.split(core.slurp(used_schemes_file))
 end
 local function _5c_5c(a, b)
   local remove = {}

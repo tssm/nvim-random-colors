@@ -1,24 +1,24 @@
 (local api vim.api)
-(local call api.nvim_call_function)
 (local core (require :random-colors.aniseed.core))
+(local f vim.fn)
 
-(local state_path (call :stdpath [:state]))
+(local state_path (f.stdpath :state))
 (local used_schemes_file (.. state_path "/used_schemes"))
 
 ; Create the file that tracks the previously used schemes if it doesn't exists
-(when (= 0 (call :filereadable [used_schemes_file]))
+(when (= 0 (f.filereadable used_schemes_file))
   (os.execute (.. "mkdir -p " state_path " && touch " used_schemes_file)))
 
 ; Sequential table with the names of all the manually installed color schemes
 (local all_schemes
   (let
     [strings
-      (call :globpath [(api.nvim_get_option :packpath) "pack/**/colors/*.vim"])
-     paths (call :split [strings "\n"])]
-    (core.map (fn [path] (call :fnamemodify [path ":t:r"])) paths)))
+      (f.globpath (api.nvim_get_option :packpath) "pack/**/colors/*.vim")
+     paths (f.split strings "\n")]
+    (core.map (fn [path] (f.fnamemodify path ":t:r")) paths)))
 
 ; Sequential table with the names of all the already used color schemes
-(fn used_schemes [] (call :split [(core.slurp used_schemes_file)]))
+(fn used_schemes [] (f.split (core.slurp used_schemes_file)))
 
 (fn \\ [a b]
   (let [remove {} result {}]
