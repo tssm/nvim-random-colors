@@ -52,7 +52,7 @@ local function set_scheme()
     os.execute(("echo '' > " .. used_schemes_file))
   else
   end
-  vim.api.nvim_command(("colorscheme " .. scheme))
+  vim.api.nvim_exec(("colorscheme " .. scheme), false)
   return os.execute(("echo " .. scheme .. " >> " .. used_schemes_file))
 end
 return set_scheme

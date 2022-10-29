@@ -42,5 +42,5 @@
      scheme (. schemes (random_number total_schemes))]
     (when (= total_schemes (length all_schemes))
       (os.execute (.. "echo '' > " used_schemes_file)))
-    (vim.api.nvim_command (.. "colorscheme " scheme))
+    (vim.api.nvim_exec (.. "colorscheme " scheme) false)
     (os.execute (.. "echo " scheme " >> " used_schemes_file))))
