@@ -1,5 +1,4 @@
 local _2afile_2a = "fnl/random-colors.fnl"
-local api = vim.api
 local core = require("random-colors.aniseed.core")
 local f = vim.fn
 local state_path = f.stdpath("state")
@@ -10,7 +9,7 @@ else
 end
 local all_schemes
 do
-  local strings = f.globpath(api.nvim_get_option("packpath"), "pack/**/colors/*.vim")
+  local strings = f.globpath(vim.o.packpath, "pack/**/colors/*.vim")
   local paths = f.split(strings, "\n")
   local function _2_(path)
     return f.fnamemodify(path, ":t:r")
@@ -53,7 +52,7 @@ local function set_scheme()
     os.execute(("echo '' > " .. used_schemes_file))
   else
   end
-  api.nvim_command(("colorscheme " .. scheme))
+  vim.api.nvim_command(("colorscheme " .. scheme))
   return os.execute(("echo " .. scheme .. " >> " .. used_schemes_file))
 end
 return set_scheme

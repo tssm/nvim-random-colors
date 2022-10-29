@@ -1,4 +1,3 @@
-(local api vim.api)
 (local core (require :random-colors.aniseed.core))
 (local f vim.fn)
 
@@ -13,7 +12,7 @@
 (local all_schemes
   (let
     [strings
-      (f.globpath (api.nvim_get_option :packpath) "pack/**/colors/*.vim")
+      (f.globpath vim.o.packpath "pack/**/colors/*.vim")
      paths (f.split strings "\n")]
     (core.map (fn [path] (f.fnamemodify path ":t:r")) paths)))
 
@@ -43,5 +42,5 @@
      scheme (. schemes (random_number total_schemes))]
     (when (= total_schemes (length all_schemes))
       (os.execute (.. "echo '' > " used_schemes_file)))
-    (api.nvim_command (.. "colorscheme " scheme))
+    (vim.api.nvim_command (.. "colorscheme " scheme))
     (os.execute (.. "echo " scheme " >> " used_schemes_file))))
