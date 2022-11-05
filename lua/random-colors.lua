@@ -9,7 +9,9 @@ else
 end
 local all_schemes
 do
-  local paths = f.globpath(vim.o.packpath, "pack/**/colors/*.vim", false, true)
+  local path_template = "pack/*/%s/*/colors/*.%s"
+  local packpath = vim.o.packpath
+  local paths = core.concat(f.globpath(packpath, string.format(path_template, "opt", "lua"), false, true), f.globpath(packpath, string.format(path_template, "opt", "vim"), false, true), f.globpath(packpath, string.format(path_template, "start", "lua"), false, true), f.globpath(packpath, string.format(path_template, "start", "vim"), false, true))
   local function _2_(path)
     return f.fnamemodify(path, ":t:r")
   end

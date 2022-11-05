@@ -11,7 +11,14 @@
 ; Sequential table with the names of all the manually installed color schemes
 (local all_schemes
   (let
-    [paths (f.globpath vim.o.packpath "pack/**/colors/*.vim" false true)]
+    [path-template :pack/*/%s/*/colors/*.%s
+     packpath vim.o.packpath
+     paths
+      (core.concat
+        (f.globpath packpath (string.format path-template :opt :lua) false true)
+        (f.globpath packpath (string.format path-template :opt :vim) false true)
+        (f.globpath packpath (string.format path-template :start :lua) false true)
+        (f.globpath packpath (string.format path-template :start :vim) false true))]
     (core.map (fn [path] (f.fnamemodify path ":t:r")) paths)))
 
 ; Sequential table with the names of all the already used color schemes
