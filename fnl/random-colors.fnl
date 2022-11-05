@@ -1,11 +1,11 @@
-(local core (require :random-colors.aniseed.core))
-(local f vim.fn)
+(local {: concat : map : slurp} (require :random-colors.aniseed.core))
+(local {: filereadable : fnamemodify : globpath : split : stdpath} vim.fn)
 
-(local state_path (f.stdpath :state))
+(local state_path (stdpath :state))
 (local used_schemes_file (.. state_path "/used_schemes"))
 
 ; Create the file that tracks the previously used schemes if it doesn't exists
-(when (= 0 (f.filereadable used_schemes_file))
+(when (= 0 (filereadable used_schemes_file))
   (os.execute (.. "mkdir -p " state_path " && touch " used_schemes_file)))
 
 ; Sequential table with the names of all the manually installed color schemes
@@ -14,15 +14,15 @@
     [path-template :pack/*/%s/*/colors/*.%s
      packpath vim.o.packpath
      paths
-      (core.concat
-        (f.globpath packpath (string.format path-template :opt :lua) false true)
-        (f.globpath packpath (string.format path-template :opt :vim) false true)
-        (f.globpath packpath (string.format path-template :start :lua) false true)
-        (f.globpath packpath (string.format path-template :start :vim) false true))]
-    (core.map (fn [path] (f.fnamemodify path ":t:r")) paths)))
+      (concat
+        (globpath packpath (string.format path-template :opt :lua) false true)
+        (globpath packpath (string.format path-template :opt :vim) false true)
+        (globpath packpath (string.format path-template :start :lua) false true)
+        (globpath packpath (string.format path-template :start :vim) false true))]
+    (map (fn [path] (fnamemodify path ":t:r")) paths)))
 
 ; Sequential table with the names of all the already used color schemes
-(fn used_schemes [] (f.split (core.slurp used_schemes_file)))
+(fn used_schemes [] (split (slurp used_schemes_file)))
 
 (fn \\ [a b]
   (let [remove {} result {}]
